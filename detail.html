@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle</title>
+</head>
+<body>
+  <div id="detailRoot"></div>
+  <script>
+    const root = document.getElementById('detailRoot');
+    const id = window.location.hash.slice(1);
+
+    async function getTodoById(id) {
+      const url = `http://localhost:3000/todos/${id}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      return data
+    }
+
+    function buildTodo(todo) {
+      const info = document.createElement('p');
+      info.innerHTML = `<p>${todo.name}</p>`
+      root.appendChild(info);
+    }
+
+    getTodoById(id)
+    .then(todo => buildTodo(todo))
+  </script>
+</body>
+</html>
